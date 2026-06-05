@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link"
 
 import { getProducts } from "../features/products/services"
@@ -88,15 +89,23 @@ const Home = async () => {
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-3">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {products.map((product) => (
-            <article key={product.name} className="rounded-[1.75rem] border border-stone-200 bg-stone-50 p-5 transition hover:-translate-y-1 hover:shadow-lg">
-              <div className="mb-5 h-40 rounded-[1.5rem] bg-gradient-to-br from-stone-900 via-stone-700 to-stone-500" />
-              <div className="space-y-2">
+            <article key={product.name} className="group overflow-hidden rounded-[1.75rem] border border-stone-200 bg-stone-50 p-4 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+              <div className="mb-4 overflow-hidden rounded-[1.4rem] bg-stone-100">
+                <Image
+                  src={product.imageUrl.trim()}
+                  alt={product.name}
+                  width={600}
+                  height={400}
+                  unoptimized
+                  className="h-44 w-full object-cover transition duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="space-y-2 px-1 pb-1">
+                <p className="text-xs uppercase tracking-[0.25em] text-amber-700">{product.category}</p>
                 <h3 className="text-lg font-semibold text-stone-950">{product.name}</h3>
-                
-                
-                <p className="text-sm font-semibold text-stone-900">{product.price}</p>
+                <p className="text-sm font-semibold text-stone-900">${product.price}</p>
               </div>
             </article>
           ))}

@@ -1,4 +1,5 @@
-import Link from "next/link";
+import Image from "next/image";
+import { addToCartAction } from "../../features/cart/actions";
 import { getProducts } from "../../features/products/services"
 import "./shop.css";
 
@@ -70,7 +71,15 @@ const Shop = async ({
                   {/* Product Image */}
                   <div className="product-image">
                     {product.imageUrl ? (
-                      <img src={product.imageUrl} alt={product.name} />
+                      <Image
+                        src={product.imageUrl.trim()}
+                        alt={product.name}
+                        fill
+                        loading="eager"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        unoptimized
+                        className="product-image__img"
+                      />
                     ) : (
                       <div className="placeholder-image">No Image</div>
                     )}
@@ -89,8 +98,11 @@ const Shop = async ({
 
                     {/* Action Buttons */}
                     <div className="product-actions">
-                      <button className="btn-primary">Add to Cart</button>
-                      <button className="btn-secondary">♥</button>
+                      <form action={addToCartAction} className="w-full">
+                        <input type="hidden" name="productId" value={product.id} />
+                        <button type="submit" className="btn-primary w-full">Add to Cart</button>
+                      </form>
+                      <button type="button" className="btn-secondary">♥</button>
                     </div>
                   </div>
                 </div>
