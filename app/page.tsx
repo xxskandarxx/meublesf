@@ -1,65 +1,109 @@
-import Image from "next/image";
+import Link from "next/link"
 
-export default function Home() {
+import { getProducts } from "../features/products/services"
+
+import HeroSlider from "./components/HeroSlider";
+
+const Home = async () => {
+  const products = await getProducts();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="space-y-16">
+      <HeroSlider />
+      <section className="overflow-hidden rounded-[2rem] border border-stone-200 bg-white shadow-[0_50px_120px_-55px_rgba(15,23,42,0.2)]">
+        <div className="grid gap-10 px-6 py-10 lg:grid-cols-[1.2fr_0.8fr] lg:px-12 lg:py-16">
+          <div className="flex flex-col justify-center gap-6">
+            <span className="inline-flex rounded-full bg-amber-100 px-4 py-1 text-sm font-semibold uppercase tracking-[0.25em] text-amber-700">
+              New collection
+            </span>
+            <div className="space-y-5">
+              <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-stone-950 sm:text-5xl">
+                Elegant furniture for modern homes, designed to feel warm and effortless.
+              </h1>
+              <p className="max-w-2xl text-base leading-8 text-stone-600 sm:text-lg">
+                Discover handpicked home products built for comfort, style, and sustainable living. Shop curated seating, tables, lighting, and decor for every room.
+              </p>
+            </div>
+
+            
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2">
+           
+            <div className="grid gap-5">
+              
+              
+              
+              <div className="relative overflow-hidden rounded-[1.5rem] bg-stone-950 p-6 text-white">
+              <div className="absolute inset-x-0 top-0 h-24 bg-orange-400/20 blur-3xl" />
+              <div className="relative space-y-4">
+                
+                <h3 className="text-2xl font-semibold">Fast home delivery</h3>
+                <p className="text-sm leading-6 text-stone-200">
+                   Receive your order quickly with careful packaging and reliable shipping across the country.
+                </p>
+              </div>
+            </div>
+            <div className="relative overflow-hidden rounded-[1.5rem] bg-stone-950 p-6 text-white">
+              <div className="absolute inset-x-0 top-0 h-24 bg-orange-400/20 blur-3xl" />
+              <div className="relative space-y-4">
+                
+                <h3 className="text-2xl font-semibold">Beautiful details</h3>
+                <p className="text-sm leading-6 text-stone-200">
+                  Curated materials, crisp lines, and finishes that elevate every room.
+                </p>
+              </div>
+            </div>
+            <div className="relative overflow-hidden rounded-[1.5rem] bg-stone-950 p-6 text-white">
+              <div className="absolute inset-x-0 top-0 h-24 bg-orange-400/20 blur-3xl" />
+              <div className="relative space-y-4">
+                
+                <h3 className="text-2xl font-semibold">Comfort first</h3>
+                <p className="text-sm leading-6 text-stone-200">
+                  Soft shapes, durable materials, and designs that feel relaxed from day one.
+                </p>
+              </div>
+            </div>
+              
+              
+              
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      
+
+      <section className="rounded-[2rem] border border-stone-200 bg-white p-6 shadow-[0_35px_100px_-60px_rgba(15,23,42,0.15)] sm:p-10">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-2xl space-y-4">
+            <p className="text-sm uppercase tracking-[0.28em] text-amber-600">Featured products</p>
+            <h3 className="text-3xl font-semibold tracking-tight text-stone-950 sm:text-4xl">Shop our top-rated furniture for a premium home look.</h3>
+            <p className="text-base leading-7 text-stone-600">
+              From modern lounge chairs to sculptural lighting, each item is picked to create a cohesive and inspiring interior.
+            </p>
+          </div>
+          <Link href="/shop" className="inline-flex items-center justify-center rounded-full bg-stone-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-stone-700">
+            Browse products
+          </Link>
         </div>
-      </main>
+
+        <div className="mt-10 grid gap-5 sm:grid-cols-3">
+          {products.map((product) => (
+            <article key={product.name} className="rounded-[1.75rem] border border-stone-200 bg-stone-50 p-5 transition hover:-translate-y-1 hover:shadow-lg">
+              <div className="mb-5 h-40 rounded-[1.5rem] bg-gradient-to-br from-stone-900 via-stone-700 to-stone-500" />
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-stone-950">{product.name}</h3>
+                
+                
+                <p className="text-sm font-semibold text-stone-900">{product.price}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
     </div>
-  );
+  )
 }
+
+export default Home
