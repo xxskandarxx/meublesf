@@ -27,12 +27,12 @@ export default function Footer() {
             <Link href="/about" className="hover:text-white">About</Link>
           </div>
 
-          {/* Legal */}
-          <div className="flex flex-col gap-2 text-sm">
+          
+          {/* <div className="flex flex-col gap-2 text-sm">
             <p className="text-white font-semibold mb-2">Legal</p>
             <Link href="/privacy" className="hover:text-white">Privacy</Link>
             <Link href="/terms" className="hover:text-white">Terms</Link>
-          </div>
+          </div> */}
         </div>
 
         {/* Bottom */}

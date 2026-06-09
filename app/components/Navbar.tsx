@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 function getCartCountFromCookie() {
@@ -12,7 +12,11 @@ function getCartCountFromCookie() {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const cartCount = getCartCountFromCookie();
+  const cartCount = useSyncExternalStore(
+    () => () => {},
+    getCartCountFromCookie,
+    () => 0,
+  );
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-neutral-200 bg-white shadow-sm backdrop-blur">

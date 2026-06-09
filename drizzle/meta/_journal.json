@@ -8,6 +8,27 @@
       "when": 1780626357754,
       "tag": "0000_wooden_silver_fox",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1781035319344,
+      "tag": "0001_wise_nighthawk",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1781035564505,
+      "tag": "0002_keen_brood",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1781036505833,
+      "tag": "0003_mighty_carmella_unuscione",
+      "breakpoints": true
     }
   ]
 }

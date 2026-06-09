@@ -1,5 +1,16 @@
 import { db } from "@/db";
 import { products } from "./schema";
+import { eq } from "drizzle-orm";
+
+export async function getProductById(id: number) {
+  const [product] = await db
+    .select()
+    .from(products)
+    .where(eq(products.id, id));
+
+  return product;
+}
+
 
 function sanitizeProductInput(data: { name: string; category: string; imageUrl: string }) {
   return {

@@ -12,20 +12,17 @@
 
 .shop-header {
   height: 380px;
-  background: linear-gradient(
-      rgba(0, 0, 0, 0.45),
-      rgba(0, 0, 0, 0.45)
-    ),
-    url("/furniture-banner.jpg");
+
+  background-image: url("https://i.pinimg.com/736x/2e/05/41/2e05414ace69986579a3a355f82e0535.jpg");
   background-size: cover;
   background-position: center;
+
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 20px;
 }
-
 .header-content h1 {
   font-size: 3.2rem;
   color: white;
@@ -317,7 +314,7 @@
   }
 
   .product-image {
-    height: 120px;
+    height: 150px;
   }
 
   .product-name {
