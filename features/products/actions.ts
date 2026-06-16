@@ -3,6 +3,7 @@
 
 import { createProduct } from "./services";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 import { db } from "@/db";
 import { products } from "./schema";
@@ -20,7 +21,9 @@ export async function updateProductAction(id: number, formData: FormData) {
     })
     .where(eq(products.id, id));
 
-  revalidatePath("/admin/products");
+  revalidatePath("/dashboard/products");
+  revalidatePath("/shop");
+  redirect("/dashboard/products");
 }
 
 export async function createProductAction(formData: FormData) {
@@ -36,12 +39,15 @@ export async function createProductAction(formData: FormData) {
     imageUrl,
   });
 
-  revalidatePath("/products");
+  revalidatePath("/dashboard/products");
+  revalidatePath("/shop");
+  redirect("/dashboard/products");
 }
 export async function deleteProductAction(id: number) {
   await db
     .delete(products)
     .where(eq(products.id, id));
 
-  revalidatePath("/admin/products");
+  revalidatePath("/dashboard/products");
+  revalidatePath("/shop");
 }

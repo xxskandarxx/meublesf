@@ -1,61 +1,62 @@
-import type { AuthOptions } from "next-auth";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { authConfig } from "./auth.config";
+import { z } from "zod";
+import type { User } from "./app/lib/definitions";
+import bcrypt from "bcrypt";
+import postgres from "postgres";
 
-export const authOptions: AuthOptions = {
-  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt" as const,
-  },
-  pages: {
-    signIn: "/admin/login",
-  },
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+
+async function getUser(email: string): Promise<User | undefined> {
+  try {
+    const user = await sql<User[]>`
+      SELECT * FROM users WHERE email=${email}
+    `;
+    return user[0];
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw new Error("Failed to fetch user.");
+  }
+}
+
+export const { auth, signIn, signOut } = NextAuth({
+  ...authConfig,
+
   providers: [
     Credentials({
-      name: "Owner",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
-      },
       async authorize(credentials) {
-        const email = String(credentials?.email ?? "").trim().toLowerCase();
-        const password = String(credentials?.password ?? "");
+        // 1. Validate input
+        const parsed = z
+          .object({
+            email: z.string().email(),
+            password: z.string().min(6),
+          })
+          .safeParse(credentials);
 
-        const expectedEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
-        const expectedPassword = process.env.ADMIN_PASSWORD;
+        if (!parsed.success) return null;
 
-        if (!expectedEmail || !expectedPassword) {
-          return null;
-        }
+        const { email, password } = parsed.data;
 
-        if (email === expectedEmail && password === expectedPassword) {
-          return {
-            id: "owner",
-            name: "Website Owner",
-            email,
-            role: "owner",
-          };
-        }
+        // 2. Get user from DB
+        const user = await getUser(email);
+        if (!user) return null;
 
-        return null;
+        // 3. Check password
+        const passwordsMatch = await bcrypt.compare(
+          password,
+          user.password
+        );
+
+        if (!passwordsMatch) return null;
+
+        // 4. SUCCESS → return user
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        };
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.role = (user as { role?: string }).role ?? "owner";
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        (session.user as typeof session.user & { role?: string }).role =
-          (token.role as string) ?? "owner";
-      }
-      return session;
-    },
-  },
-};
-
-export default NextAuth(authOptions);
+});

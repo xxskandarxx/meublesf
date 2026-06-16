@@ -52,8 +52,7 @@ const Home = async () => {
                 </p>
               </div>
             </div>
-            <p>TEST-JUNE-2026</p>
-            <p>DEPLOYMENT TEST</p>
+            
 
           </div>
 

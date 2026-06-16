@@ -55,15 +55,20 @@ export default async function CartPage({
                 {cart.map((item) => (
                   <article key={item.productId} className="flex gap-4 rounded-2xl border border-stone-200 bg-[linear-gradient(135deg,#fffaf6_0%,#fff_100%)] p-4 shadow-sm">
                     <div className="relative h-20 w-20 overflow-hidden rounded-2xl bg-stone-200">
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.name}
-                        fill
-                        sizes="80px"
-                        unoptimized
-                        className="object-cover"
-                      />
-                    </div>
+  {item.imageUrl && item.imageUrl.trim() !== "" ? (
+    <Image
+      src={item.imageUrl}
+      alt={item.name}
+      fill
+      className="object-cover"
+      unoptimized
+    />
+  ) : (
+    <div className="flex items-center justify-center w-full h-full text-xs text-stone-500">
+      No image
+    </div>
+  )}
+</div>
 
                     <div className="flex flex-1 flex-col gap-2">
                       <div className="flex items-start justify-between gap-3">

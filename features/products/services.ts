@@ -1,8 +1,10 @@
 import { db } from "@/db";
 import { products } from "./schema";
 import { eq } from "drizzle-orm";
+import { unstable_noStore as noStore } from "next/cache";
 
 export async function getProductById(id: number) {
+  noStore();
   const [product] = await db
     .select()
     .from(products)
@@ -21,6 +23,7 @@ function sanitizeProductInput(data: { name: string; category: string; imageUrl: 
 }
 
 export async function getProducts() {
+  noStore();
   const rows = await db.select().from(products);
 
   return rows.map((product) => ({
