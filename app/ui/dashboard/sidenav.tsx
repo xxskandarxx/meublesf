@@ -19,7 +19,7 @@ export default function SideNav() {
           }}
         >
       <button className="h-10 rounded-md bg-gray-100 text-xs font-medium hover:bg-gray-200">
-        Out
+        Sign Out
       </button>
        </form>
     </div>
